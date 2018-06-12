@@ -1,0 +1,15 @@
+__pycache__/
+Mar*/
+.DS_Store
+*.py[cod]
+*.json
+*.json[~]
+*.save
+*.log
+*.model
+*.t7
+*.npy
+*.flist
+*.zip
+*.gzip
+*.tar

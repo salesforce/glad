@@ -1,0 +1,8 @@
+protobuf==3.4.0
+requests==2.18.4
+stanza==0.3
+tqdm==4.19.1.post1
+vocab==0.0.3
+embeddings==0.0.4
+http://download.pytorch.org/whl/cu90/torch-0.4.0-cp36-cp36m-linux_x86_64.whl 
+numpy==1.13.1
