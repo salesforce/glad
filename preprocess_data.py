@@ -45,11 +45,9 @@ if __name__ == '__main__':
     if missing_files(draw, splits):
         if not os.path.isdir(draw):
             os.makedirs(draw)
-        with zipfile.ZipFile(fzip) as f:
-            logging.warn('Extracting {} to {}'.format(fzip, draw))
-            for split in splits:
-                with f.open('woz_2.0/woz2_{}.json'.format(split)) as fin, open(os.path.join(draw, '{}.json'.format(split)), 'wb') as fout:
-                    fout.write(fin.read())
+        download('https://github.com/nmrksic/neural-belief-tracker/raw/master/data/woz/woz_train_en.json', os.path.join(draw, 'train.json'))
+        download('https://github.com/nmrksic/neural-belief-tracker/raw/master/data/woz/woz_validate_en.json', os.path.join(draw, 'dev.json'))
+        download('https://github.com/nmrksic/neural-belief-tracker/raw/master/data/woz/woz_test_en.json', os.path.join(draw, 'test.json'))
 
     if missing_files(dann, files=splits + ['ontology', 'vocab', 'emb']):
         if not os.path.isdir(dann):
