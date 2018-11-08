@@ -2,7 +2,6 @@
 import os
 import json
 import logging
-import zipfile
 import requests
 from tqdm import tqdm
 from vocab import Vocab
@@ -13,9 +12,6 @@ from dataset import Dataset, Ontology
 root_dir = os.path.dirname(__file__)
 data_dir = os.path.join(root_dir, 'data', 'woz')
 
-
-furl = 'https://mi.eng.cam.ac.uk/~nm480/woz_2.0.zip'
-fzip = os.path.join(data_dir, 'woz.zip')
 
 draw = os.path.join(data_dir, 'raw')
 dann = os.path.join(data_dir, 'ann')
@@ -36,12 +32,6 @@ def missing_files(d, files):
 
 
 if __name__ == '__main__':
-    if not os.path.isfile(fzip):
-        if not os.path.isdir(data_dir):
-            os.makedirs(data_dir)
-        logging.warn('Download from {} to {}'.format(furl, fzip))
-        download(furl, fzip)
-
     if missing_files(draw, splits):
         if not os.path.isdir(draw):
             os.makedirs(draw)
