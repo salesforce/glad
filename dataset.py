@@ -135,6 +135,7 @@ class Dataset:
         joint_goal = []
         fix = {'centre': 'center', 'areas': 'area', 'phone number': 'number'}
         i = 0
+        slot_inform_accs = defaultdict(list)
         for d in self.dialogues:
             pred_state = {}
             for t in d.turns:
@@ -144,6 +145,10 @@ class Dataset:
                 pred_inform = set([(s, v) for s, v in preds[i] if s != 'request'])
                 request.append(gold_request == pred_request)
                 inform.append(gold_inform == pred_inform)
+
+                for s, v in t.turn_label:
+                    if s != 'request':
+                        slot_inform_accs.append((s, v) in pred_inform)
 
                 gold_recovered = set()
                 pred_recovered = set()
@@ -157,7 +162,9 @@ class Dataset:
                     pred_recovered.add(('inform', s, v))
                 joint_goal.append(gold_recovered == pred_recovered)
                 i += 1
-        return {'turn_inform': np.mean(inform), 'turn_request': np.mean(request), 'joint_goal': np.mean(joint_goal)}
+        metrics = {'turn_inform': np.mean(inform), 'turn_request': np.mean(request), 'joint_goal': np.mean(joint_goal)}
+        metrics.update({k: np.mean(v) for k, v in slot_inform_accs.items()})
+        return metrics
 
     def record_preds(self, preds, to_file):
         data = self.to_dict()
