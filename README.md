@@ -23,7 +23,7 @@ docker run --name embeddings -d vzhong/embeddings:0.0.5  # get the embeddings
 env NV_GPU=0 nvidia-docker run --name glad -d -t --net host --volumes-from embeddings glad:0.4
 ```
 
-If you do not want to build the Docker image, then run
+If you do not want to build the Docker image, then run the following (you still need to have the CoreNLP server).
 
 ```
 pip install -r requirements.txt
